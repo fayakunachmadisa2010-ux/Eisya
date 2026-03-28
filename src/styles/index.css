@@ -1,0 +1,145 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Google Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;600;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Nunito:wght@300;400;600;700&display=swap');
+
+/* ── Base ── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
+  font-family: 'Nunito', sans-serif;
+}
+
+/* ── Scrollable pages ── */
+.page-scroll {
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* ── Custom scrollbar ── */
+.page-scroll::-webkit-scrollbar       { width: 6px; }
+.page-scroll::-webkit-scrollbar-track { background: #eff6ff; }
+.page-scroll::-webkit-scrollbar-thumb { background: #93c5fd; border-radius: 4px; }
+
+/* ── Glow text ── */
+.glow-text {
+  animation: glowText 2.5s ease-in-out infinite;
+}
+@keyframes glowText {
+  0%,100% { text-shadow: 0 0 10px rgba(59,130,246,0.2); }
+  50%     { text-shadow: 0 0 30px rgba(59,130,246,0.7), 0 0 60px rgba(147,197,253,0.4); }
+}
+
+/* ── Photo ring glow ── */
+.photo-glow {
+  animation: photoGlow 3s ease-in-out infinite;
+}
+@keyframes photoGlow {
+  0%,100% { box-shadow: 0 0 0 4px #93c5fd, 0 0 24px #93c5fd50, 0 12px 40px rgba(59,130,246,0.2); }
+  50%     { box-shadow: 0 0 0 8px #bfdbfe, 0 0 48px #93c5fd90, 0 16px 50px rgba(59,130,246,0.35); }
+}
+
+/* ── Floating particles ── */
+.floater {
+  position: absolute;
+  animation: floatUp var(--dur, 7s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+  bottom: -10%;
+  opacity: 0;
+  pointer-events: none;
+}
+@keyframes floatUp {
+  0%   { transform: translateY(0) rotate(0deg) scale(1); opacity: 0; }
+  10%  { opacity: 0.8; }
+  90%  { opacity: 0.4; }
+  100% { transform: translateY(-115vh) rotate(360deg) scale(0.6); opacity: 0; }
+}
+
+/* ── Confetti ── */
+.confetti {
+  position: absolute;
+  border-radius: 2px;
+  animation: confettiFall var(--dur, 5s) linear infinite;
+  animation-delay: var(--delay, 0s);
+  top: -20px;
+  pointer-events: none;
+}
+@keyframes confettiFall {
+  0%   { transform: translateY(0) rotate(0deg) translateX(0); opacity: 1; }
+  100% { transform: translateY(115vh) rotate(720deg) translateX(var(--drift,60px)); opacity: 0; }
+}
+
+/* ── Password input focus ring ── */
+.pw-input:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(96,165,250,0.4), 0 4px 20px rgba(59,130,246,0.15);
+}
+.pw-input.error {
+  animation: shake 0.4s ease;
+  box-shadow: 0 0 0 3px rgba(248,113,113,0.5);
+}
+@keyframes shake {
+  0%,100% { transform: translateX(0); }
+  20%     { transform: translateX(-8px); }
+  40%     { transform: translateX(8px); }
+  60%     { transform: translateX(-5px); }
+  80%     { transform: translateX(5px); }
+}
+
+/* ── Polaroid tilt ── */
+.polaroid { transform: var(--tilt, rotate(-2deg)); }
+.polaroid:hover { transform: rotate(0deg) scale(1.06) translateY(-6px) !important; }
+
+/* ── Card open ── */
+.card-open-anim {
+  animation: cardOpen 0.7s cubic-bezier(.34,1.56,.64,1) both;
+}
+@keyframes cardOpen {
+  from { opacity: 0; transform: scaleY(0.6) translateY(-20px); }
+  to   { opacity: 1; transform: scaleY(1) translateY(0); }
+}
+
+/* ── Sticker bounce ── */
+.sticker-bounce {
+  animation: stickerBounce 2s ease-in-out infinite;
+}
+@keyframes stickerBounce {
+  0%,100% { transform: rotate(-10deg) scale(1); }
+  50%     { transform: rotate(10deg) scale(1.2); }
+}
+
+/* ── Audio bars ── */
+.audio-bar {
+  width: 4px;
+  background: #60a5fa;
+  border-radius: 2px;
+  animation: audioBars var(--spd,0.6s) ease-in-out infinite alternate;
+  animation-delay: var(--delay,0s);
+}
+.audio-bar.paused { animation-play-state: paused; height: 4px !important; }
+@keyframes audioBars {
+  from { height: 4px; }
+  to   { height: var(--h, 16px); }
+}
+
+/* ── Page transition ── */
+.page-enter {
+  animation: pageEnter 0.7s cubic-bezier(.4,0,.2,1) both;
+}
+@keyframes pageEnter {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.page-exit {
+  animation: pageExit 0.5s ease both;
+}
+@keyframes pageExit {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
